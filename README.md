@@ -27,6 +27,14 @@ curl -X POST http://localhost:8000/predict \
        "outcomes":["A","B","C","D"]}'
 ```
 
+## Python version
+
+This project pins Python via `.python-version` to **3.12.7**. Render
+defaults to the newest Python release (3.14 as of writing), which has
+no pre-built wheels for `pydantic-core==2.23.4` — pip then tries to
+build from Rust source and fails on Render's read-only cargo cache.
+Keeping the pin avoids that whole detour.
+
 ## Deploy to Render (free Web Service)
 
 1. Initialize this directory as its own git repo and push to GitHub:
