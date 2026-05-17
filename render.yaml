@@ -1,0 +1,10 @@
+# Render blueprint. Lets you deploy this whole thing with one click:
+# https://render.com/docs/blueprint-spec
+services:
+  - type: web
+    name: mock-forecast-agent
+    runtime: python
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn example_agent:app --host 0.0.0.0 --port $PORT
+    autoDeploy: true
