@@ -23,6 +23,7 @@ Then:
              "outcomes":["A","B","C","D"]}'
 """
 
+import asyncio
 import hashlib
 import logging
 import os
@@ -133,6 +134,13 @@ async def health() -> dict[str, Any]:
 @app.post("/predict", response_model=PredictionResponse)
 async def predict_endpoint(event: EventRequest) -> PredictionResponse:
     logger.info("Forecasting %s: %s", event.market_ticker, event.title)
+    return mock_forecast(event)
+
+
+@app.post("/predict-mock", response_model=PredictionResponse)
+async def predict_mock_endpoint(event: EventRequest) -> PredictionResponse:
+    logger.info("Mock-forecasting (30s delay) %s: %s", event.market_ticker, event.title)
+    await asyncio.sleep(30)
     return mock_forecast(event)
 
 
